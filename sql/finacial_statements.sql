@@ -1,8 +1,8 @@
-drop database if exists stock;
-
-create database stock;
-
 use stock;
+
+drop table if exists finacial_statements;
+drop table if exists operating_revenue_month;
+
 
 create table finacial_statements(
 	stock_code  varchar(4),
