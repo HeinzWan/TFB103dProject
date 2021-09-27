@@ -8,7 +8,7 @@ class FinacialStatements(Base):
 
     stock_code = Column('stock_code', String(4),primary_key=True)
     stock_report_date = Column('stock_report_date', String(20), primary_key=True)
-    stock_name = Column('stock_name', String(5))
+    stock_name = Column('stock_name', String(10))
     inventories = Column('inventories', DECIMAL(18,2))
     receivables = Column('receivables', DECIMAL(18, 2))
     cash_equiv = Column('cash_equiv', DECIMAL(18, 2))
