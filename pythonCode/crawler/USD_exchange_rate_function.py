@@ -2,6 +2,8 @@ def usdexrate(year = 2011):
     import requests
     from bs4 import BeautifulSoup
     import pandas as pd
+    from sqlalchemy import create_engine
+    import time
 
     datas = []
     page = 1
@@ -27,10 +29,16 @@ def usdexrate(year = 2011):
                 if len(tmp) == 7:
                     datas.append(tmp[1:-1])
         page += 1
+        # time.sleep(2)
+    columns = ['data_date','CashRate_Buying','CashRate_Selling','SpotRate_Buying','SpotRate_Selling' ]
 
-    columns = ["日期",'現鈔買入','現鈔賣出','即期買入','	即期賣出']
     df = pd.DataFrame(datas, columns=columns)
-    df.to_csv('usd_exrate.csv', index=False)
+
+    engine = create_engine('mysql+pymysql://root:ian1991@localhost:3306/tfb103d_project')
+
+    df.to_sql('usd_exrate', engine, if_exists="append", index=False)
+    # print(df)
     return df
 
 usdexrate()
+
