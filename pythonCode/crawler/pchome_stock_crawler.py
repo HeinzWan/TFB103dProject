@@ -26,8 +26,8 @@ engine = create_engine(f'mysql+pymysql://{username}:{password}@{host}:{port}/{da
 Session = sessionmaker(bind=engine)
 session = Session()
 
-#stock_code_list = ['2330','2303','2379','6488','5347','4966','2454','3529','3105','5483','3034']
-stock_code_list = ['2330']
+stock_code_list = ['2330','2303','2379','6488','5347','4966','2454','3529','3105','5483','3034']
+#stock_code_list = ['2330']
 
 userAgent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
 headers= {
@@ -38,25 +38,28 @@ headers= {
 }
 
 stock_report_date_list =[]
-# for y in range(2016,2018):
-#     for season in range(1,5):
-#         stock_report_date_list.append(str(y)+str(season))
-#stock_report_date_list.append('20211')
-stock_report_date_list.append('20202')
+for y in range(2016,2021):
+    for season in range(1,5):
+        stock_report_date_list.append(str(y)+str(season))
+
+stock_report_date_list.append('20211')
+stock_report_date_list.append('20212')
 
 
 #抓財務報表
 ss = requests.session()
 for stock_code in stock_code_list:
     #抓完網頁就休息一下，盡量不要給人家太多壓力
-    #time.sleep(5)
+    time.sleep(5)
     for stock_report_date in stock_report_date_list:
         # 取出對應 stocks 資料表的類別
         newObject = FinacialStatements.FinacialStatements()
-
-
         newObject.stock_code=stock_code
         newObject.stock_report_date = stock_report_date
+		
+        print(stock_code)
+        print(stock_report_date)
+		
         #0:資產負債表
         #1:損益表
         #2:財務比率
@@ -68,7 +71,7 @@ for stock_code in stock_code_list:
             tableDivEleList=soupSearchResult.select('div[id="bttb"]')
             tableEleList=tableDivEleList[0].select('table[style="margin-top:10px"]')
             trList=tableEleList[0].select('tr')
-
+			
             for tr in trList:
                 results = tr.findAll("td",{"class":"ct3"})
                 tdList=tr.select('td')
@@ -86,8 +89,8 @@ for stock_code in stock_code_list:
                     continue
                 value = value.replace(",","")
 
-                print(name)
-                print(value)
+                #print(name)
+                #print(value)
                 if "存   貨" in name:
                     newObject.inventories = value
                 elif '應收帳款淨額' in name:
