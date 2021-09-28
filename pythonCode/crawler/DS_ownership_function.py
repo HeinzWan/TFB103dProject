@@ -2,6 +2,7 @@ def DSownership(stockcode):
     import requests
     from bs4 import BeautifulSoup
     import pandas as pd
+    from sqlalchemy import create_engine
     import time
 
     url = "https://goodinfo.tw/StockInfo/StockDirectorSharehold.asp?STOCK_ID={}".format(stockcode)
@@ -17,16 +18,27 @@ def DSownership(stockcode):
 
     datas = []
     for i in table:
-        text = i.text.split(" ")[1:]
-        if len(text) == 21:
-            datas.append(text)
+        text = i.text.replace(",", "").replace('-', '0').split(" ")[1:]
+        tmp = [stockcode]
+        tmp.extend(text)
+        if len(tmp) == 22:
+            tmp[1] += "/01"
+            datas.append(tmp)
 
-    #因為columns是雙層結構，所以用手動建立合併
-    columns = ["月別","當月收盤","漲跌(元)","漲跌(%)","發行張數(萬張)","非獨董監持股張數","非獨董監持股(%)","非獨董監持股增減","非獨董監質押張數","非獨董監質押(%)","獨董監持股張數","獨董監持股(%)","獨董監持股增減","獨董監質押張數","獨董監質押(%)","全體董監持股張數","全體董監持股(%)","全體董監持股增減","全體董監質押張數","全體董監質押(%)","外資持股(%)"]
+    columns = ['stock_code', 'data_date', 'month_price', 'amount_of_change', 'rate_of_change',
+               'total_board', 'director_amount', 'director_rate', 'director_dalta', 'director_pledge_amount',
+               'director_pledge_rate', 'indirector_amount', 'indirector_rate', 'indirector_dalta',
+               'indirector_pledge_amount','indirector_pledge_rate', 'toldirector_amount', 'toldirector_rate',
+               'toldirector_dalta','toldirector_pledge_amount','toldirector_pledge_rate', 'foreign__rate']
 
     df = pd.DataFrame(datas, columns=columns)
-    df.to_csv('DSownership_{}.csv'.format(stockcode), index=False)
+
+    engine = create_engine('mysql+pymysql://root:ian1991@localhost:3306/tfb103d_project')
+
+    df.to_sql('dsownership', engine, if_exists="append", index=False)
+
     time.sleep(5) #太快會被網站阻擋，測試5秒間隔好像沒問題
+
     return df
 
 if __name__ == "__main__":
