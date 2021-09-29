@@ -44,14 +44,14 @@ for index in range(1,2513):
         contentRes = ss.get(url, headers=headers)
         contentResult = BeautifulSoup(contentRes.text, 'html.parser')
         timeEleList = contentResult.findAll('span',{'id':'MainContent_Contents_lbDate'})
-        time = timeEleList[0].text
+        date = timeEleList[0].text
 
         pContentList=contentResult.select('div[class="wikilink"]')[0].select('p')
 
         content =''
         for pContent in pContentList:
             content += pContent.text
-        moneydj_data = {'title': title, 'content': content, 'url': url,'date':time}
+        moneydj_data = {'title': title, 'content': content, 'url': url,'date':date}
         newsDataList.append(moneydj_data)
 
     moneydjNewsData.insert_many(newsDataList)
