@@ -15,9 +15,9 @@ import re
 #連接本地端mongodb
 conn = pymongo.MongoClient(host='localhost',port=27017)
 #選擇或創建資料庫
-ptt = conn['pttStock']
+moneydj = conn['moneydj']
 #選擇或創建數據集合
-moneydjNewsData = ptt['moneydjNews']
+moneydjNewsData = moneydj['moneydjNews']
 
 userAgent='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36'
 headers= {
