@@ -3,8 +3,11 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from sqlalchemy import create_engine
 
-Index_code = {'WBR_now':'131670','WBR_future':'130820','WTI_now':'131680','WTI_future':'130810','Dubai':'131690'}
-crude_indexes = ['WBR_now','WBR_future','WTI_now','WTI_future','Dubai']
+Index_code = {'WBR_now':'131670','WBR_future':'130820','WTI_now':'131680','WTI_future':'130810','Dubai':'131690',
+              'avgas_fpg':'260100','avgas_cpc':'260080'}
+crude_indexes = ['WBR_now','WBR_future','WTI_now','WTI_future','Dubai','avgas_fpg','avgas_cpc']
+
+#unit: USD,USD,USD,USD,USD, USD/L, USD/GAL
 
 for i in range(len(crude_indexes)):
 
