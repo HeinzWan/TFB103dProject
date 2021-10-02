@@ -4,6 +4,18 @@ def usdexrate(year = 2011):
     import pandas as pd
     from sqlalchemy import create_engine
     import time
+    import configparser
+
+    # config = configparser.ConfigParser()
+    # config.read('./../../../config/crawler.ini')
+    #
+    # username = config['pchome_stock_crawler-mysql']['username']     # 資料庫帳號
+    # password = config['pchome_stock_crawler-mysql']['password']     # 資料庫密碼
+    # host = config['pchome_stock_crawler-mysql']['host']    # 資料庫位址
+    # port = config['pchome_stock_crawler-mysql']['port']         # 資料庫埠號
+    # database = config['pchome_stock_crawler-mysql']['database']  # 資料庫名稱
+    # # 建立連線引擎
+    # engine = create_engine(f'mysql+pymysql://{username}:{password}@{host}:{port}/{database}')
 
     datas = []
     page = 1
@@ -40,5 +52,6 @@ def usdexrate(year = 2011):
     # print(df)
     return df
 
+#美元匯率
 usdexrate()
 

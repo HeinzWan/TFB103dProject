@@ -2,6 +2,17 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 from sqlalchemy import create_engine
+import configparser
+# config = configparser.ConfigParser()
+# config.read('./../../../config/crawler.ini')
+#
+# username = config['pchome_stock_crawler-mysql']['username']     # 資料庫帳號
+# password = config['pchome_stock_crawler-mysql']['password']     # 資料庫密碼
+# host = config['pchome_stock_crawler-mysql']['host']    # 資料庫位址
+# port = config['pchome_stock_crawler-mysql']['port']         # 資料庫埠號
+# database = config['pchome_stock_crawler-mysql']['database']  # 資料庫名稱
+# # 建立連線引擎
+# engine = create_engine(f'mysql+pymysql://{username}:{password}@{host}:{port}/{database}')
 
 Index_code = {'BPI':'260020','BCI':'260030','BDI':'260050'}
 Baltic_Indexes = ['BPI','BCI','BDI']

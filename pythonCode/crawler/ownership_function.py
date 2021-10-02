@@ -3,6 +3,18 @@ def ownership(stockcode):
     from bs4 import BeautifulSoup
     import pandas as pd
     from sqlalchemy import create_engine
+    import configparser
+
+    # config = configparser.ConfigParser()
+    # config.read('./../../../config/crawler.ini')
+    #
+    # username = config['pchome_stock_crawler-mysql']['username']     # 資料庫帳號
+    # password = config['pchome_stock_crawler-mysql']['password']     # 資料庫密碼
+    # host = config['pchome_stock_crawler-mysql']['host']    # 資料庫位址
+    # port = config['pchome_stock_crawler-mysql']['port']         # 資料庫埠號
+    # database = config['pchome_stock_crawler-mysql']['database']  # 資料庫名稱
+    # # 建立連線引擎
+    # engine = create_engine(f'mysql+pymysql://{username}:{password}@{host}:{port}/{database}')
 
     url = "https://norway.twsthr.info/StockHolders.aspx?stock={}".format(stockcode)
     headers = {
@@ -42,8 +54,13 @@ def ownership(stockcode):
     df.to_sql('ownership', engine, if_exists="append", index=False)
     return "{},Successfully!".format(stockcode)
 
-if __name__ == "__main__":
-    stockcode = '2330'
-    ownership(stockcode)
+# 股權分散圖
+companys = ["2330","2303","2379","6488","5347","4966","2454","3529","3105","5483","3034"]
+for code in companys:
+    ownership(code)
+
+# if __name__ == "__main__":
+#     stockcode = '5483'
+#     ownership(stockcode)
 
 

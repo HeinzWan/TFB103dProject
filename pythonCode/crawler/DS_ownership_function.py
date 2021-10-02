@@ -4,6 +4,18 @@ def DSownership(stockcode):
     import pandas as pd
     from sqlalchemy import create_engine
     import time
+    import configparser
+
+    # config = configparser.ConfigParser()
+    # config.read('./../../../config/crawler.ini')
+    #
+    # username = config['pchome_stock_crawler-mysql']['username']     # 資料庫帳號
+    # password = config['pchome_stock_crawler-mysql']['password']     # 資料庫密碼
+    # host = config['pchome_stock_crawler-mysql']['host']    # 資料庫位址
+    # port = config['pchome_stock_crawler-mysql']['port']         # 資料庫埠號
+    # database = config['pchome_stock_crawler-mysql']['database']  # 資料庫名稱
+    # # 建立連線引擎
+    # engine = create_engine(f'mysql+pymysql://{username}:{password}@{host}:{port}/{database}')
 
     url = "https://goodinfo.tw/StockInfo/StockDirectorSharehold.asp?STOCK_ID={}".format(stockcode)
     headers = {
@@ -18,7 +30,7 @@ def DSownership(stockcode):
 
     datas = []
     for i in table:
-        text = i.text.replace(",", "").replace('-', '0').split(" ")[1:]
+        text = i.text.replace(",", "").replace('-', '-0').split(" ")[1:]
         tmp = [stockcode]
         tmp.extend(text)
         if len(tmp) == 22:
@@ -37,10 +49,15 @@ def DSownership(stockcode):
 
     df.to_sql('dsownership', engine, if_exists="append", index=False)
 
-    time.sleep(5) #太快會被網站阻擋，測試5秒間隔好像沒問題
+    time.sleep(10) #太快會被網站阻擋，測試5秒間隔好像沒問題
 
     return df
 
-if __name__ == "__main__":
-    stockcode = '2330'
-    DSownership(stockcode)
+companys = ["2330","2303","2379","6488","5347","4966","2454","3529","3105","5483","3034"]
+
+for code in companys:
+    DSownership(code)
+
+# if __name__ == "__main__":
+#     stockcode = '2330'
+#     DSownership(stockcode)
