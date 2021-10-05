@@ -40,7 +40,7 @@ def crude_oil():
 
         engine = create_engine('mysql+pymysql://root:ian1991@localhost:3306/tfb103d_project')
 
-        df.to_sql('air_transport', engine, if_exists="append", index=False)
+        df.to_sql('energy', engine, if_exists="append", index=False)
     return "Successfully!"
 
 def natural_gas(data = '2021/10/01'):
@@ -91,7 +91,7 @@ def natural_gas(data = '2021/10/01'):
 
     engine = create_engine('mysql+pymysql://root:123456@localhost:3306/tfb103d_project')
 
-    df.to_sql('air_transport', engine, if_exists="append", index=False)
+    df.to_sql('energy', engine, if_exists="append", index=False)
     return "Successfully!"
 
 #原油與燃油指數

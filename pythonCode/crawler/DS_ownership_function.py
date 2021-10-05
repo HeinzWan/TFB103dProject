@@ -45,7 +45,7 @@ def DSownership(stockcode):
 
     df = pd.DataFrame(datas, columns=columns)
 
-    engine = create_engine('mysql+pymysql://root:ian1991@localhost:3306/tfb103d_project')
+    engine = create_engine('mysql+pymysql://root:123456@localhost:3306/tfb103d_project')
 
     df.to_sql('dsownership', engine, if_exists="append", index=False)
 

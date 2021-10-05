@@ -39,6 +39,7 @@ for key, value in seasons.items():
     from dsownership
     where {value}
     group by stock_code;''')
-    dsownership.insert(1,"Date",key)
-    engine = create_engine('mysql+pymysql://root:123456@localhost:3306/tfb103d_project')
-    dsownership.to_sql('dsownership_afetl', engine, if_exists="append", index=False)
+    dsownership.insert(0,"data_date",key)
+    ds_enine = mysql_engine()
+    # engine = create_engine('mysql+pymysql://root:123456@localhost:3306/tfb103d_project')
+    dsownership.to_sql('dsownership_afetl', ds_enine.engine, if_exists="append", index=False)

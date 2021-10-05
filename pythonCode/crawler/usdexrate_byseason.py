@@ -38,6 +38,6 @@ for key, value in seasons.items():
     usd_exrate = get_data(f'''select round(avg(SpotRate_Selling),3) avg_import_rate, round(avg(SpotRate_Buying),3) avg_export_rate
                             from usd_exrate
                             where {value};''')
-    usd_exrate.insert(0,"Date",key)
-    engine = create_engine('mysql+pymysql://root:123456@localhost:3306/tfb103d_project')
-    usd_exrate.to_sql('usd_exrate_afetl', engine, if_exists="append", index=False)
+    usd_exrate.insert(0,"data_date",key)
+    usd_engine = mysql_engine()
+    usd_exrate.to_sql('usd_exrate_afetl', usd_engine.engine, if_exists="append", index=False)
