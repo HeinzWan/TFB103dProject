@@ -41,7 +41,7 @@ def DSownership(stockcode):
                'total_board', 'director_amount', 'director_rate', 'director_dalta', 'director_pledge_amount',
                'director_pledge_rate', 'indirector_amount', 'indirector_rate', 'indirector_dalta',
                'indirector_pledge_amount','indirector_pledge_rate', 'toldirector_amount', 'toldirector_rate',
-               'toldirector_dalta','toldirector_pledge_amount','toldirector_pledge_rate', 'foreign__rate']
+               'toldirector_dalta','toldirector_pledge_amount','toldirector_pledge_rate', 'foreign_rate']
 
     df = pd.DataFrame(datas, columns=columns)
 

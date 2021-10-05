@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 from sqlalchemy import create_engine
 import configparser
+
 # config = configparser.ConfigParser()
 # config.read('./../../../config/crawler.ini')
 #
@@ -35,7 +36,7 @@ for i in range(len(Baltic_Indexes)):
     print(df)
     print('=============================================')
 
-    engine = create_engine('mysql+pymysql://root:ian1991@localhost:3306/tfb103d_project')
+    engine = create_engine('mysql+pymysql://root:123456@localhost:3306/tfb103d_project')
 
     df.to_sql('shipping', engine, if_exists="append", index=False)
 
