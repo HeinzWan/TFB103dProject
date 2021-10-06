@@ -27,6 +27,14 @@ dsownership = get_data('''select * from dsownership_afetl;''')
 
 df = pd.merge(ownership, dsownership, on=["data_date",'stock_code'], how="outer")
 
+#財務報表
+finacial_statements = get_data('''select * from finacial_statements;''')
+finacial_statements = finacial_statements.rename(columns={'stock_report_date':'data_date'})
+finacial_statements = finacial_statements.drop("stock_name",axis=1)
+# print(finacial_statements)
+
+df1 = pd.merge(df, finacial_statements, on=["data_date",'stock_code'], how="outer")
+
 enine = mysql_engine()
 
-df.to_sql('company_factor', enine.engine, if_exists="append", index=False)
+df1.to_sql('company_factor', enine.engine, if_exists="append", index=False)
