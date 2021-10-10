@@ -27,6 +27,8 @@ for index in energy_data:
         df_energy.insert(1,f"{index}",tmp[f"{index}"])
     except:
         df_energy = tmp
+df_energy["avgas_fpg"] = df_energy["avgas_fpg"].apply(lambda x : (x/3.785))
+# print(df_energy["avgas_fpg"])
 
 #航運指數
 shipping_data = ['BPI','BCI','BDI']
