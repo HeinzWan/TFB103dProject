@@ -1,5 +1,6 @@
 import pandas as pd
 from sqlalchemy import create_engine
+import json
 
 class mysql_engine():
  user='root'
@@ -47,5 +48,12 @@ df1 = pd.merge(df_shipping,df_energy,on="data_date",how="outer")
 df2 = pd.merge(df1,df_usdex,on="data_date",how="outer")
 # print(df2)
 
+# 存入 MySQL
 enine = mysql_engine()
 df2.to_sql('env_factor', enine.engine, if_exists="append", index=False)
+
+# 存為 Json 格式
+result = df2.to_json(orient="columns")
+js_path = "env_factor.json"
+with open(js_path,"w") as f:
+    json.dump(result,f)
