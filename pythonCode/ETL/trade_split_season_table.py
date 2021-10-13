@@ -20,11 +20,11 @@ def get_data(sql):
  return df
 import_export_type = {'export': '出口總值(含復出口)', 'import': '進口總值(含復進口)'}
 data_names = ['usd_value', 'ntd_value', 'tne_weight', 'kgm_weight']
-items_code = ['381800', '848610', '848620', '37050000306', '37059090102', '37079090', '37071000', '2804', '2801']
+items_code = ['381800', '848610', '848620', '37050000306', '37079090', '37071000', '2804', '2801']
 for key, value in import_export_type.items():
     for name in data_names:
         for index in items_code:
-            tmp = get_data(f"SELECT date_season, {name} 'code_{index}' from tradeseason WHERE commodity_code ='{index}' and imports_exports = '{value}' ORDER BY date_season;")
+            tmp = get_data(f"SELECT date_season, {name} 'code_{index}' from tradeseason WHERE commodity_code ='{index}' and imports_exports = '{value}' and date_season > '20174' ORDER BY date_season;")
             # print(f"SELECT date_season, {name} '{index}' from tradeseason WHERE commodity_code ='{index}' and imports_exports = '{value}' ORDER BY date_season;")
             try:
                 df_items.insert(1,f"code_{index}",tmp[f"code_{index}"])
@@ -34,4 +34,4 @@ for key, value in import_export_type.items():
         print(df_items)
         enine = mysql_engine()
         df_items.to_sql('trade_'+ key+'_'+ name , enine.engine, if_exists="append", index=False)
-        # print('trade_'+ key+'_'+ name)
+        #         # print('trade_'+ key+'_'+ name)
