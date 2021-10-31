@@ -11,6 +11,7 @@ create table dsownership_afetl(
 data_date varchar(36),
 stock_code varchar(36),
 avg_director_rate  float(4,2) default 0,
+avg_director_pledge_rate float(4,2) default 0,
 foreign_rate_bys float(4,2) default 0,
 change_rate_bys float(4,2) default 0);
 
