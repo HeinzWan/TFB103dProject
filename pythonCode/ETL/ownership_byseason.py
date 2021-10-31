@@ -42,4 +42,5 @@ for key, value in seasons.items():
     ownership.insert(0,"data_date",key)
     own_engine = mysql_engine()
     ownership.to_sql('ownership_afetl', own_engine.engine, if_exists="append", index=False)
+    print(str(key) + " was finish!")
 

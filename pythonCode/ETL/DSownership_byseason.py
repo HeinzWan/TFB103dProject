@@ -43,3 +43,4 @@ for key, value in seasons.items():
     ds_enine = mysql_engine()
     # engine = create_engine('mysql+pymysql://root:123456@localhost:3306/tfb103d_project')
     dsownership.to_sql('dsownership_afetl', ds_enine.engine, if_exists="append", index=False)
+    print(str(key) + " was finish!")
