@@ -35,7 +35,7 @@ seasons = {"20182": 'data_date < "2018-07-01"',
            "20213": 'data_date >= "2021-07-01" and data_date < "2021-10-01"'}
 
 for key, value in seasons.items():
-    dsownership = get_data(f'''select stock_code, round(avg(toldirector_rate),2) avg_director_rate, round(avg(foreign_rate),2) foreign_rate_bys, round(avg(rate_of_change),2) change_rate_bys 
+    dsownership = get_data(f'''select stock_code, round(avg(toldirector_rate),2) avg_director_rate,round(avg(toldirector_pledge_rate),2) avg_director_pledge_rate, round(avg(foreign_rate),2) foreign_rate_bys, round(avg(rate_of_change),2) change_rate_bys 
     from dsownership
     where {value}
     group by stock_code;''')
@@ -43,4 +43,5 @@ for key, value in seasons.items():
     ds_enine = mysql_engine()
     # engine = create_engine('mysql+pymysql://root:123456@localhost:3306/tfb103d_project')
     dsownership.to_sql('dsownership_afetl', ds_enine.engine, if_exists="append", index=False)
+
     print(str(key) + " was finish!")

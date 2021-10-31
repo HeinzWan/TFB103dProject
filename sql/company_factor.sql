@@ -2,7 +2,8 @@ use TFB103d_project;
 
 create table company_factor(
 data_date varchar(36),
-stock_code varchar(36),
+stock_code  varchar(36),
+stock_name varchar(20),
 inventories DECIMAL(18, 2) COMMENT '存貨',
 receivables DECIMAL(18, 2) COMMENT '應收帳款淨額',
 cash_equiv DECIMAL(18, 2) COMMENT '現金及約當現金',
@@ -29,10 +30,11 @@ research_expense DECIMAL(18, 2) COMMENT '研究發展費用',
 tax_interest_income DECIMAL(18, 2) COMMENT '本期淨利',
 cashflows_operating DECIMAL(18, 2) COMMENT '營業活動現金流量',
 invest_operating DECIMAL(18, 2) COMMENT '投資活動現金流量',
-change_rate_bys float(4,2) default 0 COMMENT '股價漲跌',
-avg_board_bys float(4,2) default 0 COMMENT '平均持股/人',
-avg_director_rate float(4,2) default 0 COMMENT '平均董監事持股比率',
-foreign_rate_bys float(4,2) default 0 COMMENT '平均外資持股比率',
-over1000_rate_bys float(4,2) default 0 COMMENT '大於1000張股東持股比率',
-under400_rate_bys float(4,2) default 0  COMMENT '小於400張股東持股比率'
+change_rate_bys float(4,2) default 0 COMMENT '股價漲跌幅', 
+avg_board_bys float(5,2) default 0 COMMENT '平均持有張數',
+avg_director_rate float(4,2) default 0 COMMENT '董監事持股比利',
+avg_director_pledge_rate float(4,2) default 0 COMMENT '董監事質押比利',
+foreign_rate_bys float(4,2) default 0 COMMENT '外資持股比例',
+over1000_rate_bys float(4,2) default 0 COMMENT '>1000張大股東持股比率',
+under400_rate_bys float(4,2) default 0 COMMENT '<400張股東持股比率'
 );
